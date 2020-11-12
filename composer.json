@@ -20,7 +20,8 @@
     "require": {
         "magento/framework": "*",
         "magento/module-widget": "*",
-        "php": "~7.0.0||~7.1.0||~7.2.0||~7.3.0"
+        "php": "~7.0.0||~7.1.0||~7.2.0||~7.3.0",
+        "fishpig/magento2-wordpress-integration": "*"
     },
     "autoload": {
         "psr-4": {

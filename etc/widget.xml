@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
     <widget class="Xigen\FishpigWordpressWidget\Block\Widget\Posts" id="xigen_fishpigwordpresswidget_posts">
-        <label>Posts</label>
-        <description>Posts</description>
+        <label>Latest Wordpress Posts</label>
+        <description>Latest Wordpress posts using FishPig extension</description>
         <parameters>
             <parameter name="limit" sort_order="10" visible="true" xsi:type="text">
                 <label>limit</label>
@@ -10,8 +10,8 @@
         </parameters>
     </widget>
     <widget class="Xigen\FishpigWordpressWidget\Block\Widget\Pages" id="xigen_fishpigwordpresswidget_pages">
-        <label>Pages</label>
-        <description>Pages</description>
+        <label>Latest Wordpress Pages</label>
+        <description>Latest Wordpress pages using FishPig extension</description>
         <parameters>
             <parameter name="limit" sort_order="20" visible="true" xsi:type="text">
                 <label>limit</label>
