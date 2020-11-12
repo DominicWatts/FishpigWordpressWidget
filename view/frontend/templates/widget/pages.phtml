@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author Dominic <dominic@xigen.co.uk>
+ */
+?>
+<?php
+/** couldn't find any factory methods */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$pages = $objectManager->create(\FishPig\WordPress\Model\ResourceModel\Post\Collection::class)
+    ->addPostTypeFilter('page')
+    ->setOrderByPostDate()
+    ->addIsViewableFilter()
+    ->setPageSize($block->getData('limit') ?: 1)
+    ->load();
+?>
+<div class="block widget block-wordpress-pages">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__("Pages")) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if (count($pages) > 0): ?>
+            <ul>
+                <?php foreach ($pages as $page): ?>
+                    <li>
+                        <a href="<?= /* @noEscape */ $page->getUrl() ?>">
+                            <p><?= $block->escapeHtml($page->getPostTitle()) ?></p>
+                        </a>
+                        <?php if ($image = $page->getFeaturedImage()): ?>
+                            <a href="<?= /* @noEscape */ $page->getUrl() ?>">
+                                <img src="<?= /* @noEscape */ $image->getAvailableImage() ?>" 
+                                     title="<?= $block->escapeHtmlAttr($page->getPostTitle()) ?>" />
+                            </a>
+                        <?php endif; ?>
+                        <p><?= /* @noEscape */ $page->getPostExcerpt(40) ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p><?= $block->escapeHtml(__("No blog page found")) ?></p>
+        <?php endif; ?>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author Dominic <dominic@xigen.co.uk>
+ */
+?>
+<?php
+/** couldn't find any factory methods */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$posts = $objectManager->create(\FishPig\WordPress\Model\ResourceModel\Post\Collection::class)
+    ->addPostTypeFilter('post')
+    ->setOrderByPostDate()
+    ->addIsViewableFilter()
+    ->setPageSize($block->getData('limit') ?: 1)
+    ->load();
+?>
+<div class="block widget block-wordpress-posts">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__("Blog Posts")) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if (count($posts) > 0): ?>
+            <ul>
+                <?php foreach ($posts as $post): ?>
+                    <li>
+                        <a href="<?= /* @noEscape */ $post->getUrl() ?>">
+                            <p><?= $block->escapeHtml($post->getPostTitle()) ?></p>
+                        </a>
+                        <?php if ($image = $post->getFeaturedImage()): ?>
+                            <a href="<?= /* @noEscape */ $post->getUrl() ?>">
+                                <img src="<?= /* @noEscape */ $image->getAvailableImage() ?>" 
+                                     title="<?= $block->escapeHtmlAttr($post->getPostTitle()) ?>" />
+                            </a>
+                        <?php endif; ?>
+                        <p><?= /* @noEscape */ $post->getPostExcerpt(40) ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p><?= $block->escapeHtml(__("No blog posts found")) ?></p>
+        <?php endif; ?>
+    </div>
+</div>
